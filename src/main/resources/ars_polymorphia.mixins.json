@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.qther.ars_polymorphia.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "ars_polymorphia.refmap.json",
+  "mixins": [
+    "CraftingLecternTileAccessor",
+    "CraftingLecternTileMixin",
+    "CraftingTerminalMenuAccessor",
+    "StorageTerminalMenuAccessor"
+  ],
+  "client": [
+    "CraftingTerminalScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
