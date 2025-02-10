@@ -47,7 +47,7 @@ side="BOTH"
 
 [[dependencies."${mod_id}"]]
 modId="polymorph"
-type="optional"
+type="required"
 versionRange="${polymorph_version_range}"
 ordering="AFTER"
 side="BOTH"
