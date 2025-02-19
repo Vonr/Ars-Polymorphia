@@ -15,7 +15,4 @@ public interface CraftingLecternTileAccessor {
 
     @Accessor
     void setCurrentRecipe(CraftingRecipe currentRecipe);
-
-    @Accessor
-    CraftingRecipe getCurrentRecipe();
 }

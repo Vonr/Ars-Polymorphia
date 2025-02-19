@@ -22,6 +22,6 @@ public abstract class CraftingTerminalScreenMixin extends AbstractStorageTermina
     @Inject(method = "init", at = @At("RETURN"))
     private void init(CallbackInfo ci) {
         RecipesWidget.create(this);
-        PacketDistributor.sendToServer(new PacketResetCraftingResult());
+        PacketDistributor.sendToServer(PacketResetCraftingResult.INSTANCE);
     }
 }

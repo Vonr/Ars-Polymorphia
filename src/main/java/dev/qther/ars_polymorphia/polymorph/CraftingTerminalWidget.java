@@ -38,7 +38,7 @@ public class CraftingTerminalWidget extends PlayerRecipesWidget {
             return;
         }
 
-        PacketDistributor.sendToServer(new PacketResetCraftingResult());
+        PacketDistributor.sendToServer(PacketResetCraftingResult.INSTANCE);
     }
 
     @Override

@@ -2,7 +2,6 @@ package dev.qther.ars_polymorphia.packets;
 
 import com.hollingsworth.arsnouveau.common.network.AbstractPacket;
 import dev.qther.ars_polymorphia.packets.serverbound.PacketResetCraftingResult;
-import dev.qther.ars_polymorphia.packets.serverbound.PacketSetRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,7 +17,6 @@ public class APNetworking {
         final PayloadRegistrar reg = event.registrar("1");
 
         reg.playToServer(PacketResetCraftingResult.TYPE, PacketResetCraftingResult.CODEC, APNetworking::handle);
-        reg.playToClient(PacketSetRecipe.TYPE, PacketSetRecipe.CODEC, APNetworking::handle);
 
         INSTANCE = reg;
     }
