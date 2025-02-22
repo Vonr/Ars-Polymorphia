@@ -55,7 +55,11 @@ public abstract class CraftingLecternTileMixin {
         HashSet<IRecipePair> pairs = new HashSet<>();
 
         for (var recipe : recipes) {
-            pairs.add(new RecipePair(recipe.id(), recipe.value().getResultItem(level.registryAccess())));
+            var result = recipe.value().getResultItem(level.registryAccess());
+            if (result.isEmpty()) {
+                continue;
+            }
+            pairs.add(new RecipePair(recipe.id(), result));
             if (selected != null && recipe.id().equals(selected.id())) {
                 this.currentRecipe = recipe.value();
             }
