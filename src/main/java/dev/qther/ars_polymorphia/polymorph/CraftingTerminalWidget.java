@@ -1,12 +1,12 @@
 package dev.qther.ars_polymorphia.polymorph;
 
-import com.hollingsworth.arsnouveau.client.container.AbstractStorageTerminalScreen;
 import com.illusivesoulworks.polymorph.api.client.widgets.PlayerRecipesWidget;
 import com.mojang.datafixers.util.Pair;
 import dev.qther.ars_polymorphia.ArsPolymorphia;
 import dev.qther.ars_polymorphia.packets.serverbound.PacketResetCraftingResult;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -19,7 +19,7 @@ public class CraftingTerminalWidget extends PlayerRecipesWidget {
 
     protected final AbstractContainerMenu menu;
 
-    public CraftingTerminalWidget(AbstractStorageTerminalScreen screen, Slot outputSlot) {
+    public CraftingTerminalWidget(AbstractContainerScreen screen, Slot outputSlot) {
         super(screen, outputSlot);
         menu = screen.getMenu();
     }

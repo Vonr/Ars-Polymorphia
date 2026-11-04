@@ -1,13 +1,12 @@
 package dev.qther.ars_polymorphia.packets.serverbound;
 
 import com.hollingsworth.arsnouveau.client.container.CraftingTerminalMenu;
-import com.hollingsworth.arsnouveau.common.block.tile.CraftingLecternTile;
 import com.hollingsworth.arsnouveau.common.block.tile.TransientCustomContainer;
 import com.hollingsworth.arsnouveau.common.network.AbstractPacket;
 import com.illusivesoulworks.polymorph.api.PolymorphApi;
 import dev.qther.ars_polymorphia.ArsPolymorphia;
 import dev.qther.ars_polymorphia.mixin.CraftingLecternTileAccessor;
-import dev.qther.ars_polymorphia.mixin.StorageTerminalMenuAccessor;
+import dev.qther.ars_polymorphia.mixin.CraftingTerminalMenuAccessor;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -26,26 +25,34 @@ public class PacketResetCraftingResult extends AbstractPacket {
 
     @Override
     public void onServerReceived(MinecraftServer server, ServerPlayer player) {
-        if (player == null) {
+        if (player == null || !(player.containerMenu instanceof CraftingTerminalMenu menu)) {
             return;
         }
 
-        if (player.containerMenu instanceof CraftingTerminalMenu menu) {
-            var te = ((StorageTerminalMenuAccessor) menu).getTe();
-            if (te instanceof CraftingLecternTile lectern) {
-                var accessor = ((CraftingLecternTileAccessor) lectern);
-                TransientCustomContainer craftMatrix = lectern.getCraftingInv(player.getUUID());
-
-                var recipe = PolymorphApi.getInstance().getRecipeManager().getPlayerRecipe(menu, RecipeType.CRAFTING, craftMatrix.asCraftInput(), player.level(), player);
-                if (recipe.isEmpty()) {
-                    return;
-                }
-
-                accessor.setCurrentRecipe(recipe.get().value());
-                accessor.invokeOnCraftingMatrixChanged(player.getUUID());
-                PolymorphApi.getInstance().getPlayerRecipeData(player).selectRecipe(recipe.get());
-            }
+        var lectern = ((CraftingTerminalMenuAccessor) menu).getTe();
+        if (lectern == null) {
+            return;
         }
+
+        var polymorph = PolymorphApi.getInstance();
+        TransientCustomContainer craftMatrix = lectern.getCraftingInv(player.getUUID());
+        var recipe = polymorph.getRecipeManager().getPlayerRecipe(
+                menu,
+                RecipeType.CRAFTING,
+                craftMatrix.asCraftInput(),
+                player.level(),
+                player
+        );
+
+        if (recipe.isEmpty()) {
+            return;
+        }
+
+        polymorph.getPlayerRecipeData(player).selectRecipe(recipe.get());
+
+        ((CraftingLecternTileAccessor) lectern).invokeOnCraftingMatrixChanged(player.getUUID());
+
+        menu.broadcastChanges();
     }
 
     @Override

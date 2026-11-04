@@ -1,6 +1,7 @@
 package dev.qther.ars_polymorphia.mixin;
 
 import com.hollingsworth.arsnouveau.client.container.CraftingTerminalMenu;
+import com.hollingsworth.arsnouveau.common.block.tile.CraftingLecternTile;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -8,4 +9,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface CraftingTerminalMenuAccessor {
     @Accessor
     CraftingTerminalMenu.ActiveResultSlot getCraftingResultSlot();
+    @Accessor
+    CraftingLecternTile getTe();
 }

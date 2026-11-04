@@ -34,10 +34,6 @@ repositories {
         url = "https://maven.theillusivec4.top/"
     }
     maven {
-        name = "OctoStudios"
-        url = uri("https://maven.octo-studios.com/releases")
-    }
-    maven {
         name = "Curse Maven"
         url = uri("https://cursemaven.com")
         content {
@@ -69,6 +65,7 @@ neoForge {
     runs {
         client {
             client()
+            systemProperty 'devenv', "true"
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -76,6 +73,7 @@ neoForge {
 
         server {
             server()
+            systemProperty 'devenv', "true"
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
@@ -85,6 +83,7 @@ neoForge {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             type = "gameTestServer"
+            systemProperty 'devenv', "true"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -132,7 +131,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     implementation "com.hollingsworth.ars_nouveau:ars_nouveau-${project.minecraft_version}:${project.ars_version}"
     compileOnly "software.bernie.geckolib:geckolib-neoforge-${project.minecraft_version}:${project.geckolib_version}"
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_version}+${project.short_mc_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_version}+${project.minecraft_version}"
 
     implementation "curse.maven:polymorph-388800:${project.polymorph_version}"
 }
